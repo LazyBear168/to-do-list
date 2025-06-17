@@ -1,17 +1,15 @@
 // File name: TodoWrapper.jsx
 // Author: sunny
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CreateForm from "./CreateForm"
 import ToDo from "./ToDo"
 
 function TodoWrapper() {
 
-    const [toDos, setToDos] = useState([
-        {content: 'Clean the toilet', id: Math.random(), 
-            isCompleted: false, isEditing: false},
-        {content: 'Do the homework', id: Math.random(), 
-            isCompleted: false, isEditing: false}
-    ]);
+    const [toDos, setToDos] = useState(() => {
+        const storedToDos = localStorage.getItem("toDos");
+        return storedToDos ? JSON.parse(storedToDos) : [];
+    });
 
     const addToDo = (content) => {
         setToDos([...toDos, {content: content, id: Math.random(), 
@@ -43,6 +41,10 @@ function TodoWrapper() {
             : toDo
         }))
     }
+
+    useEffect(() => {
+        localStorage.setItem("toDos", JSON.stringify(toDos));
+    }, [toDos]);
 
     return (
     <div className="wrapper">
