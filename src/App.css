@@ -22,6 +22,10 @@ body {
     margin-top: 20px;
     text-align: center;
 }
+.storage-switch {
+    width: 150px;
+    border-radius: 10px;
+}
 
 .create-form {
     height: 40px;
